@@ -1,11 +1,14 @@
 import React from "react";
 
-import Header from "./components/Header";
+import Header from "./components/header/Header";
+import MainPage from "./components/pages/mainPage/MainPage";
 
 function App() {
   return (
-    <div className="App">
+    <div className="antialiased text-gray-900 ">
       <Header />
+
+      <MainPage />
     </div>
   );
 }
