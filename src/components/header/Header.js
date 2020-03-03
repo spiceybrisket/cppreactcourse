@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/img/logo.png";
 
 import AccountDropdown from "./AccountDropdown";
 import SearchForm from "./SearchForm";
+import useEventListener from "../../hooks/useEventListener";
 
 const Header = () => {
-  const [isOpen, setIsopen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const escHandler = useCallback(
+    e => {
+      if (e.key === "Esc" || e.key === "Escape") {
+        setIsOpen(false);
+      }
+    },
+    [setIsOpen]
+  );
+
+  // add keydown event lstener to look for esc to close modal bg
+  useEventListener("keydown", escHandler);
 
   const classes = `px-2 pt-2 pb-4 md:flex md:p-0 ${
     isOpen ? "block" : "hidden"
@@ -20,7 +33,7 @@ const Header = () => {
         <SearchForm formClasses="hidden md:flex mt-1 relative rounded-md shadow-sm lg:ml-32" />
         <div className="md:hidden">
           <button
-            onClick={() => setIsopen(!isOpen)}
+            onClick={() => setIsOpen(!isOpen)}
             type="button"
             className="block text-gray-500 hover:text-white focus:text-white focus:outline-none"
           >
